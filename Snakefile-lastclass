@@ -1,0 +1,60 @@
+rule all:
+    input: 
+        'siddartha.dat', 
+        'five.dat', 
+        'five.sum', 'sign.dat', 'results.txt'
+
+rule count_words:
+    input: 'wordcount.py', 'novels/siddartha.txt'
+    output: 'siddartha.dat'
+    shell:
+        '''
+        python {input[0]} {input[1]} {output}
+        '''
+
+rule count_words_five:
+    input: 'novels/five.txt'
+    output: 'five.dat'
+    shell: 'python wordcount.py novels/five.txt five.dat'
+
+rule count_words_sign:
+    input: 'novels/sign.txt'
+    output: 'sign.dat'
+    shell: 'python wordcount.py novels/sign.txt sign.dat'
+
+rule results:
+    input: 'siddartha.dat', 'five.dat', 'sign.dat'
+    output: 'results.txt'
+    shell: 'python compare_books.py {input} > {output}'
+
+rule sum_1_2:
+    input: 'five.dat'
+    output: 'five.sum'
+    run:
+        lista = []
+        with open('five.dat', 'r') as f:
+            for line in f:
+                a =line.split(' ')
+                suma = a[1]+a[2]
+                lista.append(suma)
+        f.close()
+        with open('five.sum','w') as o:
+            o.write(', '.join(lista))
+ 
+rule clean:
+    shell:
+        '''
+        rm -f *.dat        
+        rm results.txt
+        '''
+
+
+
+
+
+
+
+
+
+
+
