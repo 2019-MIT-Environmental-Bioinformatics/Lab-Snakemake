@@ -178,3 +178,24 @@ If it worked, download a new book from project gutenberg into that folder and tr
 >  **Excercise**: Exercise: modify your code so that all the output files are put into a directory called `output/`.  
 
 
+## Integrating with conda
+
+Snakemake can easily integrate with conda. Let's say we wanted to make a new rule that made a simple plot with `pandas` and `matplotlib`. that showed the distribution of counts. We can ask Snakemake to call up a specified conda environment to make that happen!
+
+Take a look at the `plot.py` script in your folder. It requires both `pandas` and `matplotlib`. What is this script doing? How do you use it? 
+
+Let's make a rule called ` plot_counts` that will take all the `*dat` files and pass them to this rule to produce `*hist.png` image files. 
+
+Try running your new rule! What happens? 
+
+We can fix this by specifying the conda environment that needs to be run in. 
+
+Let's create a file called `pandasenv.yaml`. In this we are going to put the yaml text for creating a conda environment that has the programs we need (here, `pandas` and `matplotlib`).  Here we can specify the run environment for our rule. To run it we can specify the conda enviornment with `conda:`in the rule. 
+
+
+
+
+
+
+
+
